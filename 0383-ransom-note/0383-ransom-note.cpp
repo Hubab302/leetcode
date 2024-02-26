@@ -1,19 +1,23 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char,int> um1,um2;
-        for(int i=0;i<ransomNote.length();i++)
+        unordered_map<char,int> um1;
+        for(int i=0;i<magazine.length();i++)
         {
-            um1[ransomNote[i]]=um1[ransomNote[i]]+1;
+            um1[magazine[i]]=um1[magazine[i]]+1;
         }
-         for(int i=0;i<magazine.length();i++)
+         for(int i=0;i<ransomNote.length();i++)
         {
-            um2[magazine[i]]=um2[magazine[i]]+1;
-        }
-        for(int i=0;i<ransomNote.length();i++)
-        {
-            if(um2[ransomNote[i]]<um1[ransomNote[i]])
-                return false;
+             if(um1.find(ransomNote[i])==um1.end())
+                 return false;
+             else
+             {
+                 int count=um1[ransomNote[i]];
+                 count--;
+                 um1[ransomNote[i]]=count;
+                 if(count<0)
+                     return false;                 
+             }
         }
         return true;
     }
