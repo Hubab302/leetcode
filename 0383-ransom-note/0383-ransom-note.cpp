@@ -1,23 +1,16 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char,int> um1;
+        int arr[26];
         for(int i=0;i<magazine.length();i++)
         {
-            um1[magazine[i]]=um1[magazine[i]]+1;
+            arr[magazine[i]-'a']++;
         }
          for(int i=0;i<ransomNote.length();i++)
         {
-             if(um1.find(ransomNote[i])==um1.end())
+             if(arr[ransomNote[i]-'a']==0)
                  return false;
-             else
-             {
-                 int count=um1[ransomNote[i]];
-                 count--;
-                 um1[ransomNote[i]]=count;
-                 if(count<0)
-                     return false;                 
-             }
+             arr[ransomNote[i]-'a']--;
         }
         return true;
     }
